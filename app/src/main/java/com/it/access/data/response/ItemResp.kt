@@ -25,4 +25,11 @@ data class ItemResp(
     @ColumnInfo(name = "is_remote") val isRemote: Boolean = false,
     @ColumnInfo(name = "is_heating_protected") val isHeatingProtected: Boolean = false,
     @ColumnInfo(name = "is_rollover_protected") val isRolloverProtected: Boolean = false
-)
+) {
+    fun toList() =
+        listOf(
+            "Тип: $type",
+            "Размещение: $location",
+            "Обогреваемая площадь: м^2"
+        )
+}

@@ -1,13 +1,20 @@
 package com.it.access.presentation.view
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.it.access.data.response.ItemResp
 import com.it.access.databinding.ItemBinding
-import com.it.access.domain.model.ItemDiff
+
+class ItemDiff: DiffUtil.ItemCallback<ItemResp>() {
+    override fun areItemsTheSame(oldItem: ItemResp, newItem: ItemResp) =
+        oldItem.id == newItem.id
+
+    override fun areContentsTheSame(oldItem: ItemResp, newItem: ItemResp) =
+        oldItem == newItem
+}
 
 fun interface NotifyListener{
     fun notify(item: ItemResp)

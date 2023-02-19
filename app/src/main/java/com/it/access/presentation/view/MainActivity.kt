@@ -24,24 +24,17 @@ import dev.chrisbanes.insetter.applyInsetter
 class MainActivity : AppCompatActivity() {
     private val ui by lazy {  ActivityMainBinding.inflate(layoutInflater) }
     private val vm by viewModels<MyViewModel>()
+    private val descrAdapter by lazy { DescrAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         setContentView(ui.root)
 
-        setUpModes()
         setUpSheets()
+        setUpDescriptionAdapter()
         setUpAdapter()
         setUpFabs()
-    }
-
-    private fun setUpModes() {
-//        ui.fab.applyInsetter {
-//            type(navigationBars = true) {
-//                margin(bottom = true)
-//            }
-//        }
     }
 
     private fun setUpFabs() {
@@ -54,22 +47,22 @@ class MainActivity : AppCompatActivity() {
         val behavior = BottomSheetBehavior.from(ui.details.standardBottomSheet)
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-        })
+//        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//
+//            }
+//
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
+//        })
     }
 
     private fun setUpAdapter() {
         val adapter = MyAdapter()
         adapter.notifyListener = NotifyListener { item ->
+            descrAdapter.submitList(item.toList())
+
             val behavior = BottomSheetBehavior.from(ui.details.standardBottomSheet)
             behavior.state = BottomSheetBehavior.STATE_COLLAPSED
-
         }
 
         ui.content.rv.adapter = adapter
@@ -79,4 +72,9 @@ class MainActivity : AppCompatActivity() {
                 adapter.submitList(it.data)
         }
     }
+
+    private fun setUpDescriptionAdapter() {
+        ui.details.rv.adapter = descrAdapter
+    }
+
 }
