@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
 @Entity(tableName = "item")
-data class Item(
+data class ItemResp(
     @PrimaryKey val id: Int,
+    val title: String,
     val uri: String,
     val type: String,
     val location: String,

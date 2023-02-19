@@ -1,4 +1,4 @@
-package com.it.access.view
+package com.it.access.presentation.view
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

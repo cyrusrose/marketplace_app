@@ -1,4 +1,4 @@
-package com.it.access.data.converter
+package com.it.access.data.mappers
 
 import androidx.room.TypeConverter
 import java.math.BigDecimal

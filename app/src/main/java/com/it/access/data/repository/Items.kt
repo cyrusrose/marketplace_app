@@ -1,12 +1,13 @@
 package com.it.access.data.repository
 
-import com.it.access.data.response.Item
+import com.it.access.data.response.ItemResp
 import java.math.BigDecimal
 
 val items = listOf(
-    Item(
+    ItemResp(
         id = 0,
-        uri = "file:///android_asset/images/fan_heater_1",
+        title = "A",
+        uri = "file:///android_asset/images/fan_heater_1.jpg",
         type = "тепловентилятор",
         location = "напольный",
         surface = 20,
@@ -20,8 +21,9 @@ val items = listOf(
         height = 2,
         weight = BigDecimal("10.01").setScale(2)
     ),
-    Item(
+    ItemResp(
         id = 1,
+        title = "B",
         uri = "file:///android_asset/images/fan_heater_1",
         type = "тепловентилятор",
         location = "напольный",

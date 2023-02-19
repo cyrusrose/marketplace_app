@@ -1,23 +1,24 @@
 package com.it.access.data.repository
 
-import android.app.Application
 import com.it.access.data.dao.ItemDao
-import com.it.access.data.response.Item
-import com.it.access.util.Response
+import com.it.access.data.response.ItemResp
+import com.it.access.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
-class ItemRepository(val dao: ItemDao, val dispatcher: CoroutineDispatcher = Dispatchers.IO) {
-    suspend fun getAll() = withContext(dispatcher) {
-        Response.Success(dao.getAll())
-    }
+class ItemRepository(
+    private val dao: ItemDao,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+) {
+    fun getAll() = dao.getAll().flowOn(dispatcher)
 
-    suspend fun deleteAll(items: List<Item>) = withContext(dispatcher) {
+    suspend fun deleteAll(items: List<ItemResp>) = withContext(dispatcher) {
         dao.deleteAll(items)
     }
 
-    suspend fun insertAll(items: List<Item>) = withContext(dispatcher) {
+    suspend fun insertAll(items: List<ItemResp>) = withContext(dispatcher) {
         dao.insertAll(items)
     }
 }
