@@ -14,11 +14,14 @@ import com.it.access.R
 import com.it.access.data.response.ItemResp
 import com.it.access.databinding.ActivityMainBinding
 import com.it.access.presentation.MyViewModel
+import com.it.access.presentation.MyViewModel.ScreenEvent
 import com.it.access.util.DEBUG
 import com.it.access.util.Resource
 import com.it.access.util.collectLatestLifecycleFlow
+import com.it.access.util.collectLifecycleFlow
 import dagger.hilt.android.AndroidEntryPoint
 import dev.chrisbanes.insetter.applyInsetter
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -47,13 +50,18 @@ class MainActivity : AppCompatActivity() {
         val behavior = BottomSheetBehavior.from(ui.details.standardBottomSheet)
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
 
-//        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-//            override fun onStateChanged(bottomSheet: View, newState: Int) {
-//
-//            }
-//
-//            override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-//        })
+        collectLifecycleFlow(vm.sharedFlow) {
+            when(it) {
+                is ScreenEvent.DetailsSheet -> {
+                    val behavior = BottomSheetBehavior.from(ui.details.standardBottomSheet)
+                    behavior.state = if (it.isVisible)
+                        BottomSheetBehavior.STATE_COLLAPSED
+                        else BottomSheetBehavior.STATE_HIDDEN
+                }
+                is ScreenEvent.SearchSheet -> {}
+            }
+
+        }
     }
 
     private fun setUpAdapter() {
@@ -61,8 +69,7 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyListener = NotifyListener { item ->
             descrAdapter.submitList(item.toList())
 
-            val behavior = BottomSheetBehavior.from(ui.details.standardBottomSheet)
-            behavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            vm.showDetailsSheet(true)
         }
 
         ui.content.rv.adapter = adapter

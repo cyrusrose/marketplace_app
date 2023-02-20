@@ -26,10 +26,21 @@ data class ItemResp(
     @ColumnInfo(name = "is_heating_protected") val isHeatingProtected: Boolean = false,
     @ColumnInfo(name = "is_rollover_protected") val isRolloverProtected: Boolean = false
 ) {
-    fun toList() =
-        listOf(
-            "Тип: $type",
-            "Размещение: $location",
-            "Обогреваемая площадь: м^2"
-        )
+    fun toList() = listOf(
+        "Тип: $type",
+        "Размещение: $location",
+        "Обогреваемая площадь: $surface м^2",
+        "Мощность: $power вт",
+        "Нагревательный элемент: $element",
+        "Цена: $price руб",
+        "Количество скоростей: $speed",
+        "Цвет: $color",
+        "Длина: $length м",
+        "Ширина: $width м",
+        "Высота: $height м",
+        "Дистанционное управление: ${ if (isRemote) "да" else "нет"}",
+        "Защита от перегрева: ${ if (isHeatingProtected) "да" else "нет"}",
+        "Защита от опрокидывания: ${ if (isRolloverProtected) "да" else "нет"}",
+        "Вес: $weight кг"
+    )
 }

@@ -7,6 +7,8 @@ import com.it.access.data.repository.items
 import com.it.access.data.response.ItemResp
 import com.it.access.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +21,6 @@ class MyViewModel @Inject constructor(private val rep: ItemRepository): ViewMode
             rep.insertAll(items)
         }
     }
-    
 
     val stateFlow: StateFlow<Resource<List<ItemResp>>> = rep.getAll().mapLatest {
         Resource.Success(it)
@@ -29,4 +30,23 @@ class MyViewModel @Inject constructor(private val rep: ItemRepository): ViewMode
         initialValue = Resource.Loading()
     )
 
+    private val _sharedFlow = MutableSharedFlow<ScreenEvent>()
+    val sharedFlow = _sharedFlow.asSharedFlow()
+
+    fun showSearchSheet(isVisible: Boolean = true) {
+        viewModelScope.launch {
+            _sharedFlow.emit(ScreenEvent.SearchSheet(isVisible))
+        }
+    }
+
+    fun showDetailsSheet(isVisible: Boolean = true) {
+        viewModelScope.launch {
+            _sharedFlow.emit(ScreenEvent.DetailsSheet(isVisible))
+        }
+    }
+
+    sealed interface ScreenEvent {
+        data class SearchSheet(val isVisible: Boolean): ScreenEvent
+        data class DetailsSheet(val isVisible: Boolean): ScreenEvent
+    }
 }

@@ -11,7 +11,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_margin="8dp"
-        style="@style/Widget.Material3.CardView.Filled"
+        style="@style/Widget.Material3.CardView.Outlined"
         android:layout_width="match_parent"
         app:cardCornerRadius="12dp"
         android:layout_height="220dp">
