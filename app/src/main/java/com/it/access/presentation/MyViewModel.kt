@@ -45,8 +45,8 @@ class MyViewModel @Inject constructor(private val rep: ItemRepository): ViewMode
         }
     }
 
-    sealed interface ScreenEvent {
-        data class SearchSheet(val isVisible: Boolean): ScreenEvent
-        data class DetailsSheet(val isVisible: Boolean): ScreenEvent
+    sealed class ScreenEvent {
+        data class SearchSheet(val isVisible: Boolean): ScreenEvent()
+        data class DetailsSheet(val isVisible: Boolean): ScreenEvent()
     }
 }

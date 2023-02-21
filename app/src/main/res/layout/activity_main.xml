@@ -26,4 +26,8 @@
         android:id="@+id/details"
         layout="@layout/item_sheet" />
 
+    <include
+        android:id="@+id/search"
+        layout="@layout/search_sheet" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

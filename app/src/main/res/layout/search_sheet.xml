@@ -16,10 +16,16 @@
         android:layout_height="wrap_content" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+    <TextView
+        android:gravity="center_horizontal"
+        android:text="HI THERE"
+        android:textAppearance="@style/TextAppearance.Material3.DisplayLarge"
         android:layout_width="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_description"
         android:layout_height="match_parent" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv"-->
+<!--        android:layout_width="match_parent"-->
+<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--        tools:listitem="@layout/item_description"-->
+<!--        android:layout_height="match_parent" />-->
 </LinearLayout>
