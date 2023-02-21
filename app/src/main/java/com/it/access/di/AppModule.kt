@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.it.access.data.AppDatabase
 import com.it.access.data.dao.ItemDao
 import com.it.access.data.repository.ItemRepository
+import com.it.access.domain.SearchUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +29,8 @@ class AppModule {
     @Singleton
     @Provides
     fun provideItemRepository(dao: ItemDao) = ItemRepository(dao)
+
+    @Singleton
+    @Provides
+    fun provideSearchUseCase(rep: ItemRepository) = SearchUseCase(rep)
 }

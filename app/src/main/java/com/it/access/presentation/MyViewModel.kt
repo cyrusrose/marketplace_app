@@ -5,48 +5,53 @@ import androidx.lifecycle.viewModelScope
 import com.it.access.data.repository.ItemRepository
 import com.it.access.data.repository.items
 import com.it.access.data.response.ItemResp
+import com.it.access.domain.RepopulateUseCase
+import com.it.access.domain.SearchState
+import com.it.access.domain.SearchUseCase
 import com.it.access.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyViewModel @Inject constructor(private val rep: ItemRepository): ViewModel() {
+class MyViewModel @Inject constructor(
+    private val repopulateUseCase: RepopulateUseCase,
+    private val searchUseCase: SearchUseCase
+    ): ViewModel() {
     init {
         viewModelScope.launch {
-            rep.deleteAll(items)
-            rep.insertAll(items)
+            repopulateUseCase(items)
         }
     }
 
-    val stateFlow: StateFlow<Resource<List<ItemResp>>> = rep.getAll().mapLatest {
-        Resource.Success(it)
-    }.stateIn(
+    private val _searchFlow = MutableStateFlow(SearchState())
+
+    val itemFlow = searchUseCase(_searchFlow)
+    .stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
         initialValue = Resource.Loading()
     )
 
-    private val _sharedFlow = MutableSharedFlow<ScreenEvent>()
-    val sharedFlow = _sharedFlow.asSharedFlow()
+    private val _searchSheetFlow = MutableStateFlow(SearchSheet())
+    val searchSheetFlow = _searchSheetFlow.asStateFlow()
 
-    fun showSearchSheet(isVisible: Boolean = true) {
-        viewModelScope.launch {
-            _sharedFlow.emit(ScreenEvent.SearchSheet(isVisible))
-        }
+    private val _detailsSheetFlow = MutableStateFlow(DetailsSheet())
+    val detailsSheetFlow = _detailsSheetFlow.asStateFlow()
+
+    fun onValueChanged(event: SearchState) {
+        _searchFlow.value = event
     }
 
-    fun showDetailsSheet(isVisible: Boolean = true) {
-        viewModelScope.launch {
-            _sharedFlow.emit(ScreenEvent.DetailsSheet(isVisible))
-        }
+    fun showSearchSheet(isVisible: Boolean) {
+        _searchSheetFlow.value = SearchSheet(isVisible)
     }
 
-    sealed class ScreenEvent {
-        data class SearchSheet(val isVisible: Boolean): ScreenEvent()
-        data class DetailsSheet(val isVisible: Boolean): ScreenEvent()
+    fun showDetailsSheet(isVisible: Boolean, item: ItemResp? = null) {
+        _detailsSheetFlow.value = DetailsSheet(isVisible, item)
     }
+
+    data class SearchSheet(val isVisible: Boolean = false)
+    data class DetailsSheet(val isVisible: Boolean = false, val item: ItemResp? = null)
 }
