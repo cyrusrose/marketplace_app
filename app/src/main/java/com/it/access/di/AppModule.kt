@@ -1,9 +1,5 @@
 package com.it.access.di
 
-import android.app.Application
-import androidx.room.Room
-import com.it.access.data.AppDatabase
-import com.it.access.data.dao.ItemDao
 import com.it.access.data.repository.ItemRepository
 import com.it.access.domain.SearchUseCase
 import dagger.Module
@@ -17,20 +13,9 @@ import javax.inject.Singleton
 class AppModule {
     @Singleton
     @Provides
-    fun provideDb(appContext: Application) = Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java, "item-db"
-        ).build()
+    fun provideItemRepository() = ItemRepository()
 
     @Singleton
     @Provides
-    fun provideItemDao(db: AppDatabase) = db.itemDao()
-
-    @Singleton
-    @Provides
-    fun provideItemRepository(dao: ItemDao) = ItemRepository(dao)
-
-    @Singleton
-    @Provides
-    fun provideSearchUseCase(rep: ItemRepository) = SearchUseCase(rep)
+    fun provideSearchUseCase() = SearchUseCase()
 }

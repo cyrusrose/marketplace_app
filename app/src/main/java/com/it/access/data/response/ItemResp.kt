@@ -1,13 +1,9 @@
 package com.it.access.data.response
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
-@Entity(tableName = "item")
 data class ItemResp(
-    @PrimaryKey val id: Int,
+    val id: Int,
     val title: String,
     val uri: String,
     val type: String,
@@ -22,9 +18,9 @@ data class ItemResp(
     val width: Int,
     val height: Int,
     val weight: BigDecimal,
-    @ColumnInfo(name = "is_remote") val isRemote: Boolean = false,
-    @ColumnInfo(name = "is_heating_protected") val isHeatingProtected: Boolean = false,
-    @ColumnInfo(name = "is_rollover_protected") val isRolloverProtected: Boolean = false
+    val isRemote: Boolean = false,
+    val isHeatingProtected: Boolean = false,
+    val isRolloverProtected: Boolean = false
 ) {
     fun toList() = listOf(
         "Тип: $type",

@@ -1,31 +1,612 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    app:layout_insetEdge="bottom"
-    android:layout_width="match_parent"
-    android:id="@+id/sheet"
-    style="@style/Widget.App.BottomSheet"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
-        android:id="@+id/drag_handle"
+    <data>
+        <variable
+            name="vm"
+            type="com.it.access.presentation.MyViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_insetEdge="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:paddingHorizontal="8dp"
+        android:id="@+id/sheet"
+        android:clickable="true"
+        style="@style/Widget.App.BottomSheet"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:id="@+id/drag_handle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-    <TextView
-        android:gravity="center_horizontal"
-        android:text="HI THERE"
-        android:textAppearance="@style/TextAppearance.Material3.DisplayLarge"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-<!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/rv"-->
-<!--        android:layout_width="match_parent"-->
-<!--        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--        tools:listitem="@layout/item_description"-->
-<!--        android:layout_height="match_parent" />-->
-</LinearLayout>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Type   -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:flexWrap="wrap"
+                    app:alignItems="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/type_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.TYPE }"
+                        android:id="@+id/fan_type_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fan_type_param" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.TYPE }"
+                        android:id="@+id/oil_type_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/oil_type_param" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.TYPE }"
+                        android:id="@+id/tube_type_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tube_type_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Location   -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:flexWrap="wrap"
+                    app:alignItems="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/location_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.LOCATION }"
+                        android:id="@+id/floor_location_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/floor_location_param" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.LOCATION }"
+                        android:id="@+id/wall_location_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wall_location_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Surface  -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:flexWrap="wrap"
+                    app:alignItems="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/surface_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.SURFACE }"
+                        android:id="@+id/small_surface_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/small_surface_param" />
+
+                    <CheckBox
+                        app:vm="@{ vm }"
+                        app:type="@{ com.it.access.presentation.Types.SURFACE }"
+                        android:id="@+id/medium_surface_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medium_surface_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Power   -->
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    app:alignItems="center"
+                    app:flexWrap="wrap">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/power_title"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
+
+                    <CheckBox
+                        android:id="@+id/small_power_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/small_power_param"
+                        app:type="@{ com.it.access.presentation.Types.POWER }"
+                        app:vm="@{ vm }" />
+
+                    <CheckBox
+                        android:id="@+id/medium_power_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medium_power_param" />
+
+                    <CheckBox
+                        android:id="@+id/large_power_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/large_power_param" />
+
+                    <CheckBox
+                        android:id="@+id/extra_power_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/extra_power_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Element   -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:alignItems="center"
+                    app:flexWrap="wrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/element_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:id="@+id/ptc_element_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ptc_element_param" />
+
+                    <CheckBox
+                        android:id="@+id/wire_element_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wire_element_param" />
+
+                    <CheckBox
+                        android:id="@+id/fiber_element_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fiber_element_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Speed   -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:alignItems="center"
+                    app:flexWrap="wrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/speed_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:id="@+id/two_speed_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/two_speed_param" />
+
+                    <CheckBox
+                        android:id="@+id/three_speed_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/three_speed_param" />
+
+                    <CheckBox
+                        android:id="@+id/four_speed_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/four_speed_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Color   -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:alignItems="center"
+                    app:flexWrap="wrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/color_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:id="@+id/white_color_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/white_color_param" />
+
+                    <CheckBox
+                        android:id="@+id/black_color_param"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/black_color_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Price   -->
+                <LinearLayout
+                    android:layout_marginVertical="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/price_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/price_from"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/from"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/price_to"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/to"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="numberDecimal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Length   -->
+                <LinearLayout
+                    android:layout_marginVertical="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/length_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/length_from"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/from"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/length_to"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/to"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Width  -->
+                <LinearLayout
+                    android:layout_marginVertical="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/width_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/width_from"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/from"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/width_to"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/to"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!-- Height  -->
+                <LinearLayout
+                    android:layout_marginVertical="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/height_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/height_from"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/from"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/height_to"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/to"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--  Weight  -->
+                <LinearLayout
+                    android:layout_marginVertical="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/weight_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/weight_from"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/from"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/weight_to"
+                        app:endIconMode="clear_text"
+                        android:hint="@string/to"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="number"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <!--  Functions  -->
+                <com.google.android.flexbox.FlexboxLayout
+                    android:layout_marginVertical="8dp"
+                    app:alignItems="center"
+                    app:flexWrap="wrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical|start"
+                        android:text="@string/functions_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <CheckBox
+                        android:id="@+id/remote_control"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remote_control_param" />
+
+                    <CheckBox
+                        android:id="@+id/heating_protection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/heating_protection_param" />
+
+                    <CheckBox
+                        android:id="@+id/rollover_protection"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rollover_protection_param" />
+                </com.google.android.flexbox.FlexboxLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>

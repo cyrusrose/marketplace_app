@@ -1,12 +1,11 @@
 package com.it.access.presentation
 
 import android.graphics.drawable.Drawable
-import android.net.Uri
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
-import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 
 @BindingAdapter("srcUrl", "circleCrop", "placeholder", requireAll = false)
@@ -32,6 +31,18 @@ fun TextView.bindSrcUrl(
     vararg values: Any?,
 ) {
     values.let {
-        this.text = pattern.format(values)
+        this.text = pattern.format(*values)
+    }
+}
+
+@BindingAdapter("vm", "type", requireAll = true)
+fun CheckBox.onClickIt(
+    vm: MyViewModel?,
+    type: Types
+) {
+    setOnClickListener {
+        vm?.let {
+            vm.onCheckBoxClicked(isChecked, text.toString(), type)
+        }
     }
 }

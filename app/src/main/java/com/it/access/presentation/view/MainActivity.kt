@@ -1,7 +1,10 @@
 package com.it.access.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -57,12 +60,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
+        ui.search.vm = vm
+        ui.search.lifecycleOwner = this
         setContentView(ui.root)
 
         setUpDescriptionAdapter()
         setUpAdapter()
         setUpFab()
         setUpSheets()
+        setUpSearch()
+    }
+
+    private fun setUpSearch() {
+
     }
 
     private fun setUpFab() {

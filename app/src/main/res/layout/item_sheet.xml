@@ -7,6 +7,7 @@
     app:layout_insetEdge="bottom"
     android:layout_width="match_parent"
     android:id="@+id/sheet"
+    android:clickable="true"
     style="@style/Widget.App.BottomSheet"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 

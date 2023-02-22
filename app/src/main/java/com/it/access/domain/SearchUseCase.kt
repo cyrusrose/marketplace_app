@@ -2,6 +2,7 @@ package com.it.access.domain
 
 import androidx.core.util.rangeTo
 import com.it.access.data.repository.ItemRepository
+import com.it.access.data.response.ItemResp
 import com.it.access.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -11,12 +12,10 @@ import kotlinx.coroutines.flow.flowOn
 import java.util.stream.Collectors
 
 class SearchUseCase constructor(
-    private val rep: ItemRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    operator fun invoke(flow: Flow<SearchState>) =
-        rep.getAll()
-        .combine(flow) { items, event ->
+    operator fun invoke(items: Flow<List<ItemResp>>, event: Flow<SearchState>) =
+        combine(items, event) { items, event ->
             var stream = items.stream()
 
             event.isHeatingProtected?.let { pred ->
@@ -34,7 +33,7 @@ class SearchUseCase constructor(
             event.type?.let { pred ->
                 stream = stream.filter {
                     pred.any { param ->
-                        param.type == it.type
+                        param == it.type
                     }
                 }
             }
@@ -43,7 +42,7 @@ class SearchUseCase constructor(
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param.type == it.location
+                            param == it.location
                         }
                     }
             }
@@ -52,7 +51,7 @@ class SearchUseCase constructor(
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param.check(it.surface)
+                            check(param, it.surface)
                         }
                     }
             }
@@ -61,7 +60,7 @@ class SearchUseCase constructor(
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param.check(it.power)
+                            check(param, it.power)
                         }
                     }
             }
@@ -70,7 +69,7 @@ class SearchUseCase constructor(
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param.type == it.element
+                            param == it.element
                         }
                     }
             }
@@ -85,7 +84,7 @@ class SearchUseCase constructor(
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param.type == it.speed
+                            param == it.speed.toString()
                         }
                     }
             }
@@ -94,7 +93,7 @@ class SearchUseCase constructor(
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param.type == it.color
+                            param == it.color
                         }
                     }
             }
