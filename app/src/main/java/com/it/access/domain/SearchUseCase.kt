@@ -74,9 +74,17 @@ class SearchUseCase constructor(
                     }
             }
 
-            event.price?.let { pred ->
+            event.price.let { pred ->
                 stream = stream.filter {
-                    it.price in pred.from rangeTo pred.to
+                    when {
+                        pred.from != null && pred.to != null ->
+                            it.price in pred.from rangeTo pred.to
+                        pred.to != null ->
+                            it.price <= pred.to
+                        pred.from != null ->
+                            it.price >= pred.from
+                        else -> true
+                    }
                 }
             }
 
@@ -98,27 +106,59 @@ class SearchUseCase constructor(
                     }
             }
 
-            event.length?.let { pred ->
+            event.length.let { pred ->
                 stream = stream.filter {
-                    it.length in pred.from rangeTo pred.to
+                    when {
+                        pred.from != null && pred.to != null ->
+                            it.length in pred.from rangeTo pred.to
+                        pred.to != null ->
+                            it.length <= pred.to
+                        pred.from != null ->
+                            it.length >= pred.from
+                        else -> true
+                    }
                 }
             }
 
-            event.width?.let { pred ->
+            event.width.let { pred ->
                 stream = stream.filter {
-                    it.width in pred.from rangeTo pred.to
+                    when {
+                        pred.from != null && pred.to != null ->
+                            it.width in pred.from rangeTo pred.to
+                        pred.to != null ->
+                            it.width <= pred.to
+                        pred.from != null ->
+                            it.width >= pred.from
+                        else -> true
+                    }
                 }
             }
 
-            event.weight?.let { pred ->
+            event.weight.let { pred ->
                 stream = stream.filter {
-                    it.weight in pred.from rangeTo pred.to
+                    when {
+                        pred.from != null && pred.to != null ->
+                            it.weight in pred.from rangeTo pred.to
+                        pred.to != null ->
+                            it.weight <= pred.to
+                        pred.from != null ->
+                            it.weight >= pred.from
+                        else -> true
+                    }
                 }
             }
 
-            event.height?.let { pred ->
+            event.height.let { pred ->
                 stream = stream.filter {
-                    it.height in pred.from rangeTo pred.to
+                    when {
+                        pred.from != null && pred.to != null ->
+                            it.height in pred.from rangeTo pred.to
+                        pred.to != null ->
+                            it.height <= pred.to
+                        pred.from != null ->
+                            it.height >= pred.from
+                        else -> true
+                    }
                 }
             }
 

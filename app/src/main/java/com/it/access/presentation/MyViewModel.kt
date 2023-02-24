@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.it.access.data.response.ItemResp
 import com.it.access.domain.GetUseCase
+import com.it.access.domain.Params
 import com.it.access.domain.SearchState
 import com.it.access.domain.SearchUseCase
 import com.it.access.util.DEBUG
@@ -54,10 +55,12 @@ class MyViewModel @Inject constructor(
         _detailsSheetFlow.value = DetailsSheet(isVisible, item)
     }
 
-    fun onCheckBoxClicked(view: Boolean, type: String, name: Types) {
-//        if (view is CheckBox) {
-            Log.d(DEBUG, "$type $name ${view}")
-//        }
+    fun onCheckBoxClicked(isChecked: Boolean, value: String, type: Types) {
+        Log.d(DEBUG, "$type $value $isChecked")
+    }
+
+    fun onTextChanged(param: Any, type: Types) {
+        Log.d(DEBUG, "$type $param")
     }
 
     data class SearchSheet(val isVisible: Boolean = false)
@@ -70,5 +73,19 @@ enum class Types {
     TYPE,
     SURFACE,
     LOCATION,
-    POWER
+    POWER,
+    ELEMENT,
+    SPEED,
+    COLOR,
+    FUNCTION,
+    PRICE_FROM,
+    PRICE_TO,
+    LENGTH_FROM,
+    LENGTH_TO,
+    WIDTH_FROM,
+    WIDTH_TO,
+    HEIGHT_FROM,
+    HEIGHT_TO,
+    WEIGHT_FROM,
+    WEIGHT_TO
 }

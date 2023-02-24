@@ -10,13 +10,13 @@ data class SearchState(
     val surface: List<String>? = null,
     val power: List<String>? = null,
     val element: List<String>? = null,
-    val price: DecimalParam? = null,
+    val price: DecimalParam = Params(),
     val speed: List<String>? = null,
     val color: List<String>? = null,
-    val length: IntParam? = null,
-    val width: IntParam? = null,
-    val height: IntParam? = null,
-    val weight: DecimalParam? = null,
+    val length: IntParam = Params(),
+    val width: IntParam = Params(),
+    val height: IntParam = Params(),
+    val weight: DecimalParam = Params(),
     val isRemote: Boolean? = null,
     val isHeatingProtected: Boolean? = null,
     val isRolloverProtected: Boolean? = null
@@ -35,7 +35,7 @@ fun check(name: String, item: Int): Boolean =
     }
 
 
-data class Params<T>(val from: T, val to: T)
+data class Params<T>(val from: T? = null, val to: T? = null)
 
 typealias DecimalParam = Params<BigDecimal>
 

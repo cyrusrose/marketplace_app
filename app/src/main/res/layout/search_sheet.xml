@@ -179,18 +179,24 @@
                         app:vm="@{ vm }" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.POWER }"
+                        app:vm="@{ vm }"
                         android:id="@+id/medium_power_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/medium_power_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.POWER }"
+                        app:vm="@{ vm }"
                         android:id="@+id/large_power_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/large_power_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.POWER }"
+                        app:vm="@{ vm }"
                         android:id="@+id/extra_power_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -218,18 +224,24 @@
                         android:layout_height="wrap_content" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.ELEMENT }"
+                        app:vm="@{ vm }"
                         android:id="@+id/ptc_element_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ptc_element_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.ELEMENT }"
+                        app:vm="@{ vm }"
                         android:id="@+id/wire_element_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/wire_element_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.ELEMENT }"
+                        app:vm="@{ vm }"
                         android:id="@+id/fiber_element_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -257,18 +269,24 @@
                         android:layout_height="wrap_content" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.SPEED }"
+                        app:vm="@{ vm }"
                         android:id="@+id/two_speed_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/two_speed_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.SPEED }"
+                        app:vm="@{ vm }"
                         android:id="@+id/three_speed_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/three_speed_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.SPEED }"
+                        app:vm="@{ vm }"
                         android:id="@+id/four_speed_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -296,12 +314,16 @@
                         android:layout_height="wrap_content" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.COLOR }"
+                        app:vm="@{ vm }"
                         android:id="@+id/white_color_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/white_color_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.COLOR }"
+                        app:vm="@{ vm }"
                         android:id="@+id/black_color_param"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -329,6 +351,8 @@
                         android:layout_height="wrap_content" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.PRICE_FROM }"
+                        app:vm="@{ vm }"
                         android:id="@+id/price_from"
                         app:endIconMode="clear_text"
                         android:hint="@string/from"
@@ -345,6 +369,8 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.PRICE_TO }"
+                        app:vm="@{ vm }"
                         android:id="@+id/price_to"
                         app:endIconMode="clear_text"
                         android:hint="@string/to"
@@ -365,50 +391,55 @@
                     android:layout_height="wrap_content" />
 
                 <!-- Length   -->
+
                 <LinearLayout
-                    android:layout_marginVertical="8dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
                         android:gravity="center_vertical|start"
                         android:text="@string/length_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.LENGTH_FROM }"
+                        app:vm="@{ vm }"
                         android:id="@+id/length_from"
-                        app:endIconMode="clear_text"
-                        android:hint="@string/from"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="1"
                         style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/from"
+                        app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:inputType="number"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.LENGTH_TO }"
+                        app:vm="@{ vm }"
                         android:id="@+id/length_to"
-                        app:endIconMode="clear_text"
-                        android:hint="@string/to"
-                        android:layout_weight="1"
                         style="@style/Widget.Material3.TextInputLayout.FilledBox.Dense"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/to"
+                        app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:inputType="number"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:inputType="number" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -433,6 +464,8 @@
                         android:layout_height="wrap_content" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.WIDTH_FROM }"
+                        app:vm="@{ vm }"
                         android:id="@+id/width_from"
                         app:endIconMode="clear_text"
                         android:hint="@string/from"
@@ -449,6 +482,8 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.WIDTH_TO }"
+                        app:vm="@{ vm }"
                         android:id="@+id/width_to"
                         app:endIconMode="clear_text"
                         android:hint="@string/to"
@@ -485,6 +520,8 @@
                         android:layout_height="wrap_content" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.HEIGHT_FROM }"
+                        app:vm="@{ vm }"
                         android:id="@+id/height_from"
                         app:endIconMode="clear_text"
                         android:hint="@string/from"
@@ -501,6 +538,8 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.HEIGHT_TO }"
+                        app:vm="@{ vm }"
                         android:id="@+id/height_to"
                         app:endIconMode="clear_text"
                         android:hint="@string/to"
@@ -537,6 +576,8 @@
                         android:layout_height="wrap_content" />
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.WEIGHT_FROM }"
+                        app:vm="@{ vm }"
                         android:id="@+id/weight_from"
                         app:endIconMode="clear_text"
                         android:hint="@string/from"
@@ -547,12 +588,14 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        app:type="@{ com.it.access.presentation.Types.WEIGHT_TO }"
+                        app:vm="@{ vm }"
                         android:id="@+id/weight_to"
                         app:endIconMode="clear_text"
                         android:hint="@string/to"
@@ -562,7 +605,7 @@
                         android:layout_height="wrap_content">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:inputType="number"
+                            android:inputType="numberDecimal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -589,18 +632,24 @@
                         android:layout_height="wrap_content" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.FUNCTION }"
+                        app:vm="@{ vm }"
                         android:id="@+id/remote_control"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/remote_control_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.FUNCTION }"
+                        app:vm="@{ vm }"
                         android:id="@+id/heating_protection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/heating_protection_param" />
 
                     <CheckBox
+                        app:type="@{ com.it.access.presentation.Types.FUNCTION }"
+                        app:vm="@{ vm }"
                         android:id="@+id/rollover_protection"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
