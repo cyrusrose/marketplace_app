@@ -1,8 +1,8 @@
-package com.it.access.domain
+package com.it.access.domain.use_cases
 
 import androidx.core.util.rangeTo
-import com.it.access.data.repository.ItemRepository
 import com.it.access.data.response.ItemResp
+import com.it.access.domain.SearchState
 import com.it.access.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -14,31 +14,33 @@ import java.util.stream.Collectors
 class SearchUseCase constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
-    operator fun invoke(items: Flow<List<ItemResp>>, event: Flow<SearchState>) =
-        combine(items, event) { items, event ->
+    operator fun invoke(
+        itemsFlow: Flow<List<ItemResp>>,
+        eventFlow: Flow<SearchState>
+    ) =
+        eventFlow
+            .combine(itemsFlow) { event, items ->
             var stream = items.stream()
 
-            event.isHeatingProtected?.let { pred ->
-                stream = stream.filter { it.isHeatingProtected == pred }
-            }
-
-            event.isRemote?.let { pred ->
-                stream = stream.filter { it.isRemote == pred }
-            }
-
-            event.isRolloverProtected?.let { pred ->
-                stream = stream.filter { it.isRolloverProtected == pred }
-            }
-
-            event.type?.let { pred ->
-                stream = stream.filter {
-                    pred.any { param ->
-                        param == it.type
+            event.functions.let { pred ->
+                if(pred.isNotEmpty())
+                    stream = stream.filter {
+                        pred.any { param ->
+                            param in it.functions
+                        }
                     }
-                }
             }
 
-            event.location?.let { pred ->
+            event.type.let { pred ->
+                if(pred.isNotEmpty())
+                    stream = stream.filter {
+                        pred.any { param ->
+                            param == it.type
+                        }
+                    }
+            }
+
+            event.location.let { pred ->
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
@@ -47,25 +49,25 @@ class SearchUseCase constructor(
                     }
             }
 
-            event.surface?.let { pred ->
+            event.surface.let { pred ->
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            check(param, it.surface)
+                            com.it.access.domain.check(param, it.surface)
                         }
                     }
             }
 
-            event.power?.let { pred ->
+            event.power.let { pred ->
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            check(param, it.power)
+                            com.it.access.domain.check(param, it.power)
                         }
                     }
             }
 
-            event.element?.let { pred ->
+            event.element.let { pred ->
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
@@ -88,16 +90,16 @@ class SearchUseCase constructor(
                 }
             }
 
-            event.speed?.let { pred ->
+            event.speed.let { pred ->
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->
-                            param == it.speed.toString()
+                            param.toInt() == it.speed
                         }
                     }
             }
 
-            event.color?.let { pred ->
+            event.color.let { pred ->
                 if(pred.isNotEmpty())
                     stream = stream.filter {
                         pred.any { param ->

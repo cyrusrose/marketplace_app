@@ -18,9 +18,7 @@ data class ItemResp(
     val width: Int,
     val height: Int,
     val weight: BigDecimal,
-    val isRemote: Boolean = false,
-    val isHeatingProtected: Boolean = false,
-    val isRolloverProtected: Boolean = false
+    val functions: Set<String>
 ) {
     fun toList() = listOf(
         "Тип: $type",
@@ -34,9 +32,8 @@ data class ItemResp(
         "Длина: $length см",
         "Ширина: $width см",
         "Высота: $height см",
-        "Дистанционное управление: ${ if (isRemote) "да" else "нет"}",
-        "Защита от перегрева: ${ if (isHeatingProtected) "да" else "нет"}",
-        "Защита от опрокидывания: ${ if (isRolloverProtected) "да" else "нет"}",
+        "Функции:",
+        *functions.toTypedArray(),
         "Вес: $weight кг"
     )
 }

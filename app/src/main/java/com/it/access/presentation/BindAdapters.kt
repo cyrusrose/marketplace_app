@@ -6,6 +6,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.ComponentActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
 import coil.load
@@ -13,6 +14,8 @@ import coil.transform.CircleCropTransformation
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.textfield.TextInputLayout
 import com.it.access.domain.Params
+import com.it.access.util.collectLatestLifecycleFlow
+import kotlinx.coroutines.flow.collectLatest
 
 @BindingAdapter("srcUrl", "circleCrop", "placeholder", requireAll = false)
 fun ImageView.bindSrcUrl(
@@ -28,16 +31,6 @@ fun ImageView.bindSrcUrl(
             placeholder(holder)
             error(holder)
         }
-    }
-}
-
-@BindingAdapter("pattern", "values", requireAll = true)
-fun TextView.bindSrcUrl(
-    pattern: String,
-    vararg values: Any?,
-) {
-    values.let {
-        this.text = pattern.format(*values)
     }
 }
 
@@ -67,11 +60,12 @@ fun TextInputLayout.onTextChanged(
         return
 
     editText?.doOnTextChanged click@ { mText, _, _, _ ->
-        val text = mText.toString()
-
-        vm.onTextChanged(
-            param = text,
-            type = type
-        )
+        if (!vm.isCleaning.value) {
+            val text = mText.toString()
+            vm.onTextChanged(
+                param = text,
+                type = type
+            )
+        }
     }
 }

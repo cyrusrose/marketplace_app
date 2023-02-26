@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".presentation.view.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <include
-        android:id="@+id/content"
-        layout="@layout/content_main" />
+    <data>
+        <variable
+            name="vm"
+            type="com.it.access.presentation.MyViewModel" />
+    </data>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab"
-        android:layout_gravity="end|bottom"
-        app:layout_dodgeInsetEdges="bottom"
-        android:layout_marginBottom="16dp"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Tertiary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fab_margin"
-        app:icon="@drawable/ic_filter" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".presentation.view.MainActivity">
 
-    <include
-        android:id="@+id/details"
-        layout="@layout/item_sheet" />
+        <include
+            android:id="@+id/content"
+            layout="@layout/content_main" />
 
-    <include
-        android:id="@+id/search"
-        layout="@layout/search_sheet" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab"
+            android:layout_gravity="end|bottom"
+            app:layout_dodgeInsetEdges="bottom"
+            android:layout_marginBottom="16dp"
+            style="@style/Widget.Material3.ExtendedFloatingActionButton.Tertiary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/fab_margin"
+            app:icon="@drawable/ic_filter" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <include
+            android:id="@+id/details"
+            layout="@layout/item_sheet" />
+
+        <include
+            android:id="@+id/search"
+            layout="@layout/search_sheet" />
+
+        <ProgressBar
+            android:id="@+id/is_searching"
+            android:visibility="@{ vm.isSearching }"
+            android:scaleX="0.2"
+            android:scaleY="0.2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

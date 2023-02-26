@@ -1,5 +1,6 @@
 package com.it.access.presentation.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,14 +12,16 @@ import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
+import com.it.access.R
 import com.it.access.databinding.ActivityMainBinding
+import com.it.access.databinding.SearchSheetBinding
+import com.it.access.domain.DecimalParam
+import com.it.access.presentation.CleanState
 import com.it.access.presentation.MyViewModel
 import com.it.access.presentation.MyViewModel.*
-import com.it.access.util.DEBUG
-import com.it.access.util.Resource
-import com.it.access.util.collectLatestLifecycleFlow
-import com.it.access.util.collectLifecycleFlow
+import com.it.access.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
 import setSheetVisibility
 import javax.inject.Inject
 import javax.inject.Named
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private val ui by lazy {  ActivityMainBinding.inflate(layoutInflater) }
     private val vm by viewModels<MyViewModel>()
     private val descrAdapter by lazy { DescrAdapter() }
-    private val detailsCallback = object: BottomSheetBehavior.BottomSheetCallback() {
+    private val detailsCallback = object: BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if(newState == BottomSheetBehavior.STATE_HIDDEN)
                 vm.showDetailsSheet(false)
@@ -36,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
     }
-    private val searchCallback = object: BottomSheetBehavior.BottomSheetCallback() {
+    private val searchCallback = object: BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if(newState == BottomSheetBehavior.STATE_HIDDEN)
                 vm.showSearchSheet(false)
@@ -60,6 +63,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
+        ui.vm = vm
+        ui.lifecycleOwner = this
         ui.search.vm = vm
         ui.search.lifecycleOwner = this
         setContentView(ui.root)
@@ -71,14 +76,28 @@ class MainActivity : AppCompatActivity() {
         setUpSearch()
     }
 
-    private fun setUpSearch() {
 
+    private fun setUpSearch() {
+        collectLatestLifecycleFlow(vm.isCleaning) {
+            if (it) Log.d(DEBUG, "clean")
+            if (it) with(ui.search) {
+                cleanSearch()
+            }
+        }
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setUpFab() {
+        collectLatestLifecycleFlow(vm.fabFlow) {
+            ui.fab.icon = when(it) {
+                CleanState.FILTER -> resources.getDrawable(R.drawable.ic_filter, applicationContext.theme)
+                CleanState.COLLAPSE -> resources.getDrawable(R.drawable.ic_up, applicationContext.theme)
+                else -> resources.getDrawable(R.drawable.ic_clean, applicationContext.theme)
+            }
+        }
+
         ui.fab.setOnClickListener {
-            vm.showDetailsSheet(false)
-            vm.showSearchSheet(true)
+            vm.onFabPressed()
         }
     }
 
@@ -114,4 +133,40 @@ class MainActivity : AppCompatActivity() {
         ui.details.rv.adapter = descrAdapter
     }
 
+}
+
+fun SearchSheetBinding.cleanSearch() {
+    whiteColorParam.isChecked = false
+    blackColorParam.isChecked = false
+    ptcElementParam.isChecked = false
+    fiberElementParam.isChecked = false
+    wireElementParam.isChecked = false
+    halogenElementParam.isChecked = false
+    remoteControl.isChecked = false
+    heatingProtection.isChecked = false
+    rolloverProtection.isChecked = false
+    fanTypeParam.isChecked = false
+    oilTypeParam.isChecked = false
+    tubeTypeParam.isChecked = false
+    floorLocationParam.isChecked = false
+    wallLocationParam.isChecked = false
+    smallSurfaceParam.isChecked = false
+    mediumSurfaceParam.isChecked = false
+    smallPowerParam.isChecked = false
+    mediumPowerParam.isChecked = false
+    largePowerParam.isChecked = false
+    extraPowerParam.isChecked = false
+    twoSpeedParam.isChecked = false
+    threeSpeedParam.isChecked = false
+    fourSpeedParam.isChecked = false
+    priceFrom.editText?.setText("")
+    priceTo.editText?.setText("")
+    lengthFrom.editText?.setText("")
+    lengthTo.editText?.setText("")
+    widthFrom.editText?.setText("")
+    widthTo.editText?.setText("")
+    heightFrom.editText?.setText("")
+    heightTo.editText?.setText("")
+    weightFrom.editText?.setText("")
+    weightTo.editText?.setText("")
 }

@@ -1,7 +1,7 @@
 package com.it.access.di
 
 import com.it.access.data.repository.ItemRepository
-import com.it.access.domain.SearchUseCase
+import com.it.access.domain.use_cases.SearchUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,4 +1,4 @@
-package com.it.access.domain
+package com.it.access.domain.use_cases
 
 import com.it.access.data.repository.ItemRepository
 import javax.inject.Inject

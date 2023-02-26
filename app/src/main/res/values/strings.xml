@@ -18,6 +18,7 @@
     <string name="wall_location_param">настенный</string>
     <string name="wire_element_param">нагревательный провод</string>
     <string name="fiber_element_param">углеродное волокно</string>
+    <string name="halogen_element_param">галоген</string>
     <string name="white_color_param">белый</string>
     <string name="black_color_param">черный</string>
     <string name="type_title">Тип:</string>
