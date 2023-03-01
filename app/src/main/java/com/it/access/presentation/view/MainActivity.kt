@@ -63,8 +63,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
-        ui.vm = vm
-        ui.lifecycleOwner = this
         ui.search.vm = vm
         ui.search.lifecycleOwner = this
         setContentView(ui.root)
@@ -83,6 +81,11 @@ class MainActivity : AppCompatActivity() {
             if (it) with(ui.search) {
                 cleanSearch()
             }
+        }
+
+        collectLatestLifecycleFlow(vm.isSearching) {
+            ui.isSearching.visibility = if (it) View.VISIBLE else View.GONE
+            ui.content.rv.visibility = if (it) View.GONE else View.VISIBLE
         }
     }
 
