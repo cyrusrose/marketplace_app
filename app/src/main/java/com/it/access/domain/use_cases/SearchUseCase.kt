@@ -6,6 +6,7 @@ import com.it.access.domain.SearchState
 import com.it.access.util.Resource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
@@ -20,6 +21,9 @@ class SearchUseCase constructor(
     ) =
         eventFlow
             .combine(itemsFlow) { event, items ->
+
+            delay(800) // fake api delay
+
             var stream = items.stream()
 
             event.functions.let { pred ->

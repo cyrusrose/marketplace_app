@@ -23,12 +23,12 @@ data class SearchState(
 
 fun check(name: String, item: Int): Boolean =
     when (name) {
-        "< 20 м²" -> item < 20
-        "≥ 20 м²" -> item >= 20
-        "< 800 вт" -> item < 800
-        "850–1199 вт" -> item in 850..1199
-        "1200–2000 вт" -> item in 1200..2000
-        "> 2000 вт" -> item > 2000
+        "< 20 m²" -> item < 20
+        "≥ 20 m²" -> item >= 20
+        "< 800 W" -> item < 800
+        "850–1199 W" -> item in 850..1199
+        "1200–2000 W" -> item in 1200..2000
+        "> 2000 W" -> item > 2000
         else -> false
     }
 

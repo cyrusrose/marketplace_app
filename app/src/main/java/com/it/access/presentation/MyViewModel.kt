@@ -29,14 +29,7 @@ class MyViewModel @Inject constructor(
     val isCleaning = _isCleaning.asStateFlow()
 
     private val _isSearching = MutableStateFlow(false)
-    val isSearching = _isSearching.map {
-        if (it) View.VISIBLE else View.GONE
-    }
-    .stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-        initialValue = View.GONE
-    )
+    val isSearching = _isSearching.asStateFlow()
 
     private val _itemsFlow = getUseCase()
         .stateIn(

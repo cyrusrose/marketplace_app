@@ -21,19 +21,19 @@ data class ItemResp(
     val functions: Set<String>
 ) {
     fun toList() = listOf(
-        "Тип: $type",
-        "Размещение: $location",
-        "Обогреваемая площадь: $surface м²",
-        "Мощность: $power вт",
-        "Нагревательный элемент: $element",
-        "Цена: $price руб",
-        "Количество скоростей: $speed",
-        "Цвет: $color",
-        "Длина: $length см",
-        "Ширина: $width см",
-        "Высота: $height см",
-        "Функции:",
+        "Type: $type",
+        "Location: $location",
+        "Surface: $surface м²",
+        "Power: $power вт",
+        "Heating element: $element",
+        "Price: $price руб",
+        "Gears: $speed",
+        "Color: $color",
+        "Length: $length см",
+        "Width: $width см",
+        "Height: $height см",
+        "Functions:",
         *functions.toTypedArray(),
-        "Вес: $weight кг"
+        "Weight: $weight кг"
     )
 }
