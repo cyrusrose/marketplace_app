@@ -1,4 +1,4 @@
-package com.it.access.presentation.view
+package com.it.access.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

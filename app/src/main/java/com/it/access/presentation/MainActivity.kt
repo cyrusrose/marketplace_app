@@ -1,30 +1,21 @@
-package com.it.access.presentation.view
+package com.it.access.presentation
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.it.access.R
 import com.it.access.databinding.ActivityMainBinding
 import com.it.access.databinding.SearchSheetBinding
-import com.it.access.domain.DecimalParam
-import com.it.access.presentation.CleanState
-import com.it.access.presentation.MyViewModel
 import com.it.access.presentation.MyViewModel.*
 import com.it.access.util.*
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
 import setSheetVisibility
-import javax.inject.Inject
-import javax.inject.Named
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
