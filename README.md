@@ -23,10 +23,10 @@ In this branch you'll find:
 
 Viewing details:
 <p align="center">
-<img src="/images/details.gif" width="25%" />
+<img src="/images/details.gif" width="40%" />
 </p>
 
 Filtering search results:
 <p align="center">
-<img src="/images/filter.gif" width="25%" />
+<img src="/images/filter.gif" width="40%" />
 </p>
