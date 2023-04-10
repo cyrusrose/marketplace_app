@@ -43,11 +43,11 @@ fun CheckBox.onClickIt(
         return
 
     setOnClickListener {
-        vm.onCheckBoxClicked(
+        vm.onEvent(UiEvent.CheckBoxChangedEvent(
             isChecked = isChecked,
             value = text.toString(),
             type = type
-        )
+        ))
     }
 }
 
@@ -62,10 +62,10 @@ fun TextInputLayout.onTextChanged(
     editText?.doOnTextChanged click@ { mText, _, _, _ ->
         if (!vm.isCleaning.value) {
             val text = mText.toString()
-            vm.onTextChanged(
+            vm.onEvent(UiEvent.TextChangedEvent(
                 param = text,
                 type = type
-            )
+            ))
         }
     }
 }

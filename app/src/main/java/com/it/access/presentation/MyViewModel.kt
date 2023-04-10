@@ -55,22 +55,14 @@ class MyViewModel @Inject constructor(
         initialValue = Resource.Loading()
     )
 
-    private val _searchSheetFlow = MutableStateFlow(SearchSheet())
+    private val _searchSheetFlow = MutableStateFlow(UiEvent.SearchSheet())
     val searchSheetFlow = _searchSheetFlow.asStateFlow()
 
-    private val _detailsSheetFlow = MutableStateFlow(DetailsSheet())
+    private val _detailsSheetFlow = MutableStateFlow(UiEvent.DetailsSheet())
     val detailsSheetFlow = _detailsSheetFlow.asStateFlow()
 
     private val _fabFlow = MutableStateFlow(CleanState.FILTER)
     val fabFlow = _fabFlow.asStateFlow()
-
-    fun showSearchSheet(isVisible: Boolean) {
-        _searchSheetFlow.update { SearchSheet(isVisible) }
-    }
-
-    fun showDetailsSheet(isVisible: Boolean, item: ItemResp? = null) {
-        _detailsSheetFlow.update { DetailsSheet(isVisible, item) }
-    }
 
     private val _uiFlow = MutableSharedFlow<UiEvent>()
 
@@ -113,11 +105,17 @@ class MyViewModel @Inject constructor(
                     }
                 is UiEvent.FabEvent -> {
                     if (_fabFlow.value in arrayOf(CleanState.FILTER, CleanState.COLLAPSE)) {
-                        showDetailsSheet(false)
-                        showSearchSheet(true)
+                        _detailsSheetFlow.update { UiEvent.DetailsSheet(false) }
+                        _searchSheetFlow.update { UiEvent.SearchSheet(true) }
                     } else {
                         onSearchCleaned()
                     }
+                }
+                is UiEvent.SearchSheet -> {
+                    _searchSheetFlow.update { event }
+                }
+                is UiEvent.DetailsSheet -> {
+                    _detailsSheetFlow.update { event }
                 }
             }
             Log.d(DEBUG, "why")
@@ -125,28 +123,15 @@ class MyViewModel @Inject constructor(
         .launchIn(viewModelScope)
     }
 
-    fun onSearchCleaned() {
+    fun onEvent(event: UiEvent) {
+        viewModelScope.launch {
+            _uiFlow.emit(event)
+        }
+    }
+
+    private fun onSearchCleaned() {
         _isCleaning.update { true }
         _searchFlow.update { SearchState() }
-    }
-
-
-    fun onFabPressed() {
-        viewModelScope.launch {
-            _uiFlow.emit(UiEvent.FabEvent)
-        }
-    }
-
-    fun onCheckBoxClicked(isChecked: Boolean, value: String, type: Types) {
-        viewModelScope.launch {
-            _uiFlow.emit(UiEvent.CheckBoxChangedEvent(isChecked, value, type))
-        }
-    }
-
-    fun onTextChanged(param: String, type: Types) {
-        viewModelScope.launch {
-            _uiFlow.emit(UiEvent.TextChangedEvent(param, type))
-        }
     }
 }
 
@@ -154,10 +139,11 @@ enum class CleanState {
     FILTER, CLEAN, COLLAPSE
 }
 
-data class SearchSheet(val isVisible: Boolean = false)
-data class DetailsSheet(val isVisible: Boolean = false, val item: ItemResp? = null)
 
 sealed class UiEvent {
+    class SearchSheet(val isVisible: Boolean = false): UiEvent()
+    class DetailsSheet(val isVisible: Boolean = false, val item: ItemResp? = null): UiEvent()
+
     object FabEvent: UiEvent()
     class TextChangedEvent(val param: String, val type: Types): UiEvent()
     class CheckBoxChangedEvent(val isChecked: Boolean, val value: String, val type: Types): UiEvent()

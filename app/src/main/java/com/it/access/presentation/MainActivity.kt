@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val detailsCallback = object: BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if(newState == BottomSheetBehavior.STATE_HIDDEN)
-                vm.showDetailsSheet(false)
+                vm.onEvent(UiEvent.DetailsSheet(false))
         }
 
         override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private val searchCallback = object: BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             if(newState == BottomSheetBehavior.STATE_HIDDEN)
-                vm.showSearchSheet(false)
+                vm.onEvent(UiEvent.SearchSheet(false))
         }
 
         override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         ui.fab.setOnClickListener {
-            vm.onFabPressed()
+            vm.onEvent(UiEvent.FabEvent)
         }
     }
 
@@ -111,8 +111,8 @@ class MainActivity : AppCompatActivity() {
     private fun setUpAdapter() {
         val adapter = MyAdapter()
         adapter.notifyListener = NotifyListener { item ->
-            vm.showDetailsSheet(true, item)
-            vm.showSearchSheet(false)
+            vm.onEvent(UiEvent.DetailsSheet(true, item))
+            vm.onEvent(UiEvent.SearchSheet(false))
         }
 
         ui.content.rv.adapter = adapter
